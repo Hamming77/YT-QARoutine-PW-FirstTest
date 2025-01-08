@@ -74,25 +74,28 @@
 10. Change playwright.yml in order to run the tests in Docker containers:
 
     ```yml
-    name: Playwright Tests
-    on:
-        push:
-            branches: [ main ]
-    jobs:
-        playwright:
-            name: 'Playwright Tests'
-            runs-on: ubuntu-latest
-            container:
-                image: mcr.microsoft.com/playwright:v1.49.1-noble
-                options: --user 1001
-            steps:
-            - uses: actions/checkout@v4
-            - uses: actions/setup-node@v4
-                with:
-                    node-version: lts/*
-            - name: Install dependencies
-                run: npm ci
-            - name: Run your tests
-                run: npx playwright test
-    ´´´
+        name: Playwright Tests
+        on:
+            push:
+                branches: [ main ]
+        jobs:
+            playwright:
+                name: 'Playwright Tests'
+                runs-on: ubuntu-latest
+                container:
+                    image: mcr.microsoft.com/playwright:v1.49.1-noble
+                    options: --user 1001
+                steps:
+                - uses: actions/checkout@v4
+                - uses: actions/setup-node@v4
+                    with:
+                        node-version: lts/*
+                - name: Install dependencies
+                    run: npm ci
+                - name: Run your tests
+                    run: npx playwright test
+    ```                    
+
 11. Fix the test to pass again and push all the changes
+
+12. It will trigger as many executions as .yaml file are existing inside <code>workflows</code> folder, so it can be useful to setup different workflows with different configurations

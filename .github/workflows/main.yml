@@ -1,4 +1,4 @@
-name: Repeated Playwright Tests
+name: 100 Playwright Tests in a loop
 on:
   push:
     branches: [ main ]
@@ -17,4 +17,4 @@ jobs:
       - name: Install dependencies
         run: npm ci
       - name: Run your tests
-        run: npx playwright test tests/example.spec.ts --repeat-each 10 --project=chromium
+        run: npx playwright test tests/example.spec.ts --repeat-each 50 --project=chromium

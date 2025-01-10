@@ -1,9 +1,8 @@
 ## RUN PLAYWRIGHT TESTS WITH GITHUB ACTIONS INSIDE DOCKER
 
 <a href="https://playwright.dev/docs/ci-intro">PLAYWRIGHT DOCS: Setting up CI</a>
-<a href="https://playwright.dev/docs/ci">PLAYWRIGHT DOCS: Continuous Integration</a>
 
-### CREATE GITHUB REPOSITORY AND CLONE IT LOCALLY
+<a href="https://playwright.dev/docs/ci">PLAYWRIGHT DOCS: Continuous Integration</a>
 
 1. Create a new public repo: YT-QARoutine-PW
 2. In VSCode navigate to the parent folder

@@ -1,3 +1,71 @@
+## ADD TYPE CHECKING AND LINITING TO A PLAYWRIGHT PROJECT
+
+<a href="https://playwright.dev/docs/test-typescript">PLAYWRIGHT DOCS: TypeScript</a>
+
+<a href="https://www.youtube.com/watch?v=3gT7LuzqOAk">Add type checking and linting to your Playwright project</a>
+
+As Playwright does not check the types, it will run tests even if there are non-critical TypeScript compilation errors
+
+Therefore, it is recommended to run TypeScript compiler alongside Playwright to perform type check and also linting our code to prevent specific Playwright errors like missing awaits when necessary or introducing them when they are not required
+
+Most importantly, realize about all of them before spending time on executing the whole testsuite
+
+1. Install TypeScript in the project as a dependency:
+
+    ```sh
+    npm install --save-dev typescript
+    ```
+2. Create a new TypeScript config file:
+
+    ```sh
+    npx tsc --init
+    ```
+3. Run TypseScript compiler, <code>--noEmit</code> will only do the type checking without emitting JavaScript files, <code>-p</code> compiles the project given the path to its configuration file, or to a folder with a <code>'tsconfig.json'</code>, <code>-w</code> watch mode to realize about errors when saving the files:
+    ```sh
+    npx tsc -p tsconfig.json --noEmit -w
+    ```
+4. We can also edit <code>package.json</code> file so that we can run the compiler automatically before executting the test command, just by typing <code>npm run test</code> command in the console, as it is annotated with the <code>pre</code> prefix:
+    ```json:package.json
+    "scripts": {
+        "pretest": "tsc --noEmit",
+        "test": "playwright test"
+    },
+    ```
+5. Install *typescript-eslint*, that sits on top of *eslint* a very common JavaScript linter but enriched with specific TypeScript features:
+
+    ```sh
+    npm install --save-dev eslint @eslint/js typescript typescript-eslint
+    ```
+6. Create a new configuration file in the root folder <code>"eslint.config.mjs"</code>
+
+    ```js:eslint.config.mjs
+    import eslint from '@eslint/js';
+    import tseslint from 'typescript-eslint';
+
+    export default tseslint.config(
+        eslint.configs.recommended,
+        tseslint.configs.recommended,
+        {
+            rules : {
+                "@typescript-eslint/no-floating-promises": "error",
+                "@typescript-eslint/await-thenable": "error"
+            }
+        }
+    );
+    ```
+7. Run typescript-eslint:
+    ```sh
+    npx eslint tests/**
+    ```
+8. Modify <code>package.json</code> file so both compiler and linter are runn before the tests:
+
+    ```json:package.json
+    "scripts": {
+        "pretest": "tsc --noEmit && eslint tests/**",
+        "test": "playwright test"
+    },
+    ```
+
 ## RUN PLAYWRIGHT TESTS WITH GITHUB ACTIONS INSIDE DOCKER
 
 <a href="https://playwright.dev/docs/ci-intro">PLAYWRIGHT DOCS: Setting up CI</a>

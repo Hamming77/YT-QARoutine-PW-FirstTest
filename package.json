@@ -3,7 +3,10 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "pretest": "tsc --noEmit && eslint tests/**",
+    "test": "playwright test tests/typeCheckingAndLinting.spec.ts --project=chromium"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Hamming77/YT-QARoutine-PW-FirstTest.git"
@@ -16,7 +19,11 @@
   },
   "homepage": "https://github.com/Hamming77/YT-QARoutine-PW-FirstTest#readme",
   "devDependencies": {
+    "@eslint/js": "^9.18.0",
     "@playwright/test": "^1.49.1",
-    "@types/node": "^22.10.5"
+    "@types/node": "^22.10.5",
+    "eslint": "^9.18.0",
+    "typescript": "^5.7.3",
+    "typescript-eslint": "^8.20.0"
   }
 }

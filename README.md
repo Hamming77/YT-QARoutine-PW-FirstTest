@@ -39,19 +39,25 @@ Most importantly, realize about all of them before spending time on executing th
 6. Create a new configuration file in the root folder <code>"eslint.config.mjs"</code>
 
     ```js:eslint.config.mjs
-    import eslint from '@eslint/js';
-    import tseslint from 'typescript-eslint';
+    	import eslint from '@eslint/js';
+	import tseslint from 'typescript-eslint';
 
-    export default tseslint.config(
-        eslint.configs.recommended,
-        tseslint.configs.recommended,
-        {
-            rules : {
-                "@typescript-eslint/no-floating-promises": "error",
-                "@typescript-eslint/await-thenable": "error"
-            }
-        }
-    );
+	export default tseslint.config(
+	  eslint.configs.recommended,
+	  tseslint.configs.recommended,
+	  {
+	    languageOptions: {
+	    parserOptions: {
+	        project: true,
+	        tsconfigRootDir: ".",
+	      },
+	    },
+	    rules : {
+	        "@typescript-eslint/no-floating-promises": "error",
+	        "@typescript-eslint/await-thenable": "error"
+	    }
+	  }
+	);
     ```
 7. Run typescript-eslint:
     ```sh
